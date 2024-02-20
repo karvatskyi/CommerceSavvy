@@ -1,0 +1,49 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-table-employees
+      author: karvatskyi
+      changes:
+        - createTable:
+            tableName: employees
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(55)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: email
+                  type: varchar(55)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: password
+                  type: varchar(400)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: productivity_this_month
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_present
+                  type: BIT
+                  defaultValue: true
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_deleted
+                  type: BIT
+                  defaultValue: false
+                  constraints:
+                    nullable: false

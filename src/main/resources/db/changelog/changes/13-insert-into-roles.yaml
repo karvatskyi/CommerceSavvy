@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-roles
+      author: karvatskyi
+      changes:
+        - sql:
+            sql: INSERT INTO roles (role_name) VALUES ('STOREKEEPER'), ('MANAGER'), ('ADMIN'), ('OWNER')

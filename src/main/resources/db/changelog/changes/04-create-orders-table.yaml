@@ -1,0 +1,40 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-table-orders
+      author: karvatskyi
+      changes:
+        - createTable:
+            tableName: orders
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: local_date_time
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: seller_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: buyer
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: delivery_address
+                  type: VARCHAR(55)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: notes
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: true

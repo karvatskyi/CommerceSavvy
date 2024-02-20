@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-table-employee-roles
+      author: karvatskyi
+      changes:
+        - createTable:
+            tableName: employee_roles
+            columns:
+              - column:
+                  name: employee_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role_id
+                  type: bigint
+                  constraints:
+                    nullable: false

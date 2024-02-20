@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-table-task-items
+      author: karvatskyi
+      changes:
+        - createTable:
+            tableName: task_items
+            columns:
+              - column:
+                  name: task_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: item_id
+                  type: bigint
+                  constraints:
+                    nullable: false

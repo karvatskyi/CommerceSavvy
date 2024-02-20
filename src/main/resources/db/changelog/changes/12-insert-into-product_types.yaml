@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-product-types
+      author: karvatskyi
+      changes:
+        - sql:
+            sql: INSERT INTO product_types (type) VALUES ('FOOTAGE'), ('PIECE'), ('BOTTLING')

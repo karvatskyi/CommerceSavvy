@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-table-product-types
+      author: karvatskyi
+      changes:
+        - createTable:
+            tableName: product_types
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: type
+                  type: ENUM('FOOTAGE', 'PIECE', 'BOTTLING')
+                  constraints:
+                    nullable: false

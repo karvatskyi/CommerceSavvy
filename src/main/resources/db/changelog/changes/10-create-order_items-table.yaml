@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-table-order-items
+      author: karvatskyi
+      changes:
+        - createTable:
+            tableName: order_items
+            columns:
+              - column:
+                  name: order_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: item_id
+                  type: bigint
+                  constraints:
+                    nullable: false
