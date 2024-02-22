@@ -46,7 +46,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderResponseDto getOrderById(Long id) {
         return orderMapper.toResponseFromEntity(
-                orderRepository.findById(id).orElseThrow(RuntimeException::new));
+                orderRepository.findById(id).orElseThrow(() -> new RuntimeException("Can't get order by id: " + id)));
     }
 
     private List<Item> parseDtoListToEntityList(List<ItemRequestDto> requestDtos) {

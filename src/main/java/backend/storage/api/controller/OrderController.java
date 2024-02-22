@@ -44,7 +44,7 @@ public class OrderController {
         return taskService.createTasks(parsedList);
     }
 
-    @PreAuthorize("hasRole('MANAGER')")
+    @PreAuthorize("hasAuthority('MANAGER')")
     @PostMapping("/create")
     public OrderResponseDto createOrder(@RequestBody OrderRequestDto requestDto) {
         return orderService.createOrder(requestDto);

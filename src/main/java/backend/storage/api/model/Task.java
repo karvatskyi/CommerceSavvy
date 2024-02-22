@@ -29,7 +29,7 @@ public class Task {
     private int sizeTask;
 
     @ManyToOne
-    @JoinColumn(name = "employee_id", nullable = false)
+    @JoinColumn(name = "employee_id")
     private Employee employee;
 
     @OneToMany

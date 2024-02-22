@@ -31,23 +31,26 @@ public class ProductController {
         return productService.findAll();
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/save")
     public ProductResponseDto save(@RequestBody @Valid ProductRequestDto product) {
         return productService.save(product);
     }
 
-    @GetMapping("/id{id}")
+    @GetMapping("/id/{id}")
     public ProductResponseDto getById(@PathVariable Long id) {
         return productService.findById(id);
     }
 
-    @PostMapping("/update{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PostMapping("/update/{id}")
     public ProductResponseDto updateProductById(@PathVariable Long id, @RequestBody ProductRequestDto requestDto) {
         return productService.updateProductById(id, requestDto);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("/delete{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteById(@PathVariable Long id) {
         productService.deleteById(id);
     }
@@ -55,5 +58,11 @@ public class ProductController {
     @GetMapping("/find{name}")
     public List<ProductResponseDto> findByName(@RequestParam String name) {
         return productService.findProductByName(name);
+    }
+
+    @PreAuthorize("hasAuthority('STOREKEEPER')")
+    @PostMapping("/{productId}/update-place")
+    public boolean updatePlace(@PathVariable Long productId, @RequestBody String newPlace) {
+        return productService.updatePlace(productId, newPlace);
     }
 }

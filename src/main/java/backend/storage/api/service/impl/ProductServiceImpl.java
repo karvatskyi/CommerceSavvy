@@ -65,4 +65,13 @@ public class ProductServiceImpl implements ProductService {
                 .map(productMapper::toResponseFromEntity)
                 .toList();
     }
+
+    @Override
+    public boolean updatePlace(Long productId, String newPlace) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Can't find product by id: " + productId));
+        product.setPlace(newPlace);
+        productRepository.save(product);
+        return true;
+    }
 }

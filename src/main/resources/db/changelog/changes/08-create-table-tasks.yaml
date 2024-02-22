@@ -21,5 +21,3 @@ databaseChangeLog:
               - column:
                   name: employee_id
                   type: bigint
-                  constraints:
-                    nullable: false

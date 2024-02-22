@@ -7,7 +7,6 @@ import backend.storage.api.dto.EmployeeResponseDto;
 import backend.storage.api.mapper.EmployeeMapper;
 import backend.storage.api.model.Employee;
 import backend.storage.api.repository.EmployeeRepository;
-import backend.storage.api.repository.RoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,15 +29,13 @@ public class AuthenticationService {
 
     private final EmployeeRepository employeeRepository;
 
+    private final AuthenticationManager authenticationManager;
+
     public EmployeeLoginResponseDto authenticate(EmployeeLoginRequestDto requestDto) {
-        Optional<Employee> currentEmployee = employeeRepository.findByEmail(requestDto.getEmail());
-        if (currentEmployee.isEmpty()) {
-            throw new RuntimeException("Employee not register");
-        }
-        if (!passwordEncoder.matches(requestDto.getPassword(), currentEmployee.get().getPassword())) {
-            throw new RuntimeException("Invalid password");
-        }
-        String token = jwtUtil.generateToken(requestDto.getEmail());
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(requestDto.getEmail(), requestDto.getPassword())
+        );
+        String token = jwtUtil.generateToken(authentication.getName());
         EmployeeLoginResponseDto employeeLoginResponseDto = new EmployeeLoginResponseDto();
         employeeLoginResponseDto.setToken(token);
         return employeeLoginResponseDto;
