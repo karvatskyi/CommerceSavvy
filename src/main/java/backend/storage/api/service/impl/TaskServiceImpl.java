@@ -1,11 +1,18 @@
 package backend.storage.api.service.impl;
 
+import backend.storage.api.dto.TaskRequestDto;
+import backend.storage.api.dto.TaskResponseDto;
+import backend.storage.api.mapper.EmployeeMapper;
+import backend.storage.api.mapper.TaskMapper;
 import backend.storage.api.model.Item;
 import backend.storage.api.model.Task;
+import backend.storage.api.repository.EmployeeRepository;
+import backend.storage.api.repository.TaskRepository;
 import backend.storage.api.service.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,7 +25,13 @@ public class TaskServiceImpl implements TaskService {
     private final static int FIRST_ELEMENT = 0;
     private static final int MAX_SIZE_TASK = 200;
 
-    //private final EmployeeRepository employeeRepository;
+    private final TaskMapper taskMapper;
+
+    private final TaskRepository taskRepository;
+
+    private final EmployeeRepository employeeRepository;
+
+    private final EmployeeMapper employeeMapper;
 
     @Override
     public List<Task> createTasks(List<Item> input) {
@@ -39,6 +52,16 @@ public class TaskServiceImpl implements TaskService {
             tasks.add(task);
         }
         return tasks;
+    }
+
+    @Override
+    public TaskResponseDto createOrder(TaskRequestDto requestDto) {
+        Task entityFromRequest = taskMapper.toEntityFromRequest(requestDto);
+        entityFromRequest.setCreationTime(LocalDateTime.now());
+        TaskResponseDto responseFromEntity = taskMapper.toResponseFromEntity(entityFromRequest);
+        responseFromEntity.setAuthorTaskId(employeeMapper.toResponseFromEntity(employeeRepository.findById(requestDto.getAuthorTaskId())
+                .orElseThrow(() -> new RuntimeException("Employee with id: " + requestDto.getAuthorTaskId() + " doesn't exist"))));
+        return responseFromEntity;
     }
 
     private List<Item> split(List<Item> items) {

@@ -7,10 +7,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
-public class OrderResponseDto {
+public class TaskResponseDto {
     private List<Item> items;
-    private LocalDateTime localDateTime;
-    private Employee seller;
+    private LocalDateTime creationTime;
+    private EmployeeResponseDto authorTaskId;
     private String deliveryAddress;
     private String buyer;
     private String description;

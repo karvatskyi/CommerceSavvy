@@ -31,7 +31,6 @@ public class ProductController {
         return productService.findAll();
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/save")
     public ProductResponseDto save(@RequestBody @Valid ProductRequestDto product) {
         return productService.save(product);

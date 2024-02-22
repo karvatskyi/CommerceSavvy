@@ -6,19 +6,13 @@ databaseChangeLog:
   - include:
       file: db/changelog/changes/03-create-items-table.yaml
   - include:
-      file: db/changelog/changes/04-create-orders-table.yaml
-  - include:
       file: db/changelog/changes/05-create-products-table.yaml
   - include:
       file: db/changelog/changes/06-create-product_types-table.yaml
   - include:
-      file: db/changelog/changes/07-create-table-role_names.yaml
-  - include:
       file: db/changelog/changes/08-create-table-tasks.yaml
   - include:
       file: db/changelog/changes/09-create-employees_roles-table.yaml
-  - include:
-      file: db/changelog/changes/10-create-order_items-table.yaml
   - include:
       file: db/changelog/changes/11-create-task_items-table.yaml
   - include:
@@ -27,3 +21,11 @@ databaseChangeLog:
       file: db/changelog/changes/12-insert-into-product_types.yaml
   - include:
       file: db/changelog/changes/13-insert-into-roles.yaml
+  - include:
+      file: db/changelog/changes/14-create-status-table.yaml
+  - include:
+      file: db/changelog/changes/15-insert-into-statuses.yaml
+  - include:
+      file: db/changelog/changes/16-create-task_types-table.yaml
+  - include:
+      file: db/changelog/changes/17-insert-into-task_type.yaml

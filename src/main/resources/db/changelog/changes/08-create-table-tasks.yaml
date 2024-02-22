@@ -19,5 +19,34 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: employee_id
+                  name: author_task_id
                   type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: performer_task_id
+                  type: bigint
+              - column:
+                  name: status_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: task_type_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: creation_time
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: buyer
+                  type: varchar(100)
+              - column:
+                  name: delivery_address
+                  type: varchar(100)
+              - column:
+                  name: notes
+                  type: varchar(255)

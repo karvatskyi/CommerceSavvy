@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-task_type
+      author: karvatskyi
+      changes:
+        - sql:
+            sql: INSERT INTO task_types (type) VALUES ('ORDER'), ('MOVING')
