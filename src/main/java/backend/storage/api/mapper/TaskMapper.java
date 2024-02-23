@@ -14,7 +14,7 @@ public interface TaskMapper {
     @Mapping(target = "authorTaskId", source = "authorTaskId", qualifiedByName = "mapToEmployee")
     Task toEntityFromRequest(TaskRequestDto requestDto);
 
-    @Mapping(target = "authorTaskId", ignore = true)
+    @Mapping(target = "authorTask", ignore = true)
     TaskResponseDto toResponseFromEntity(Task task);
 
     @Named("mapToEmployee")

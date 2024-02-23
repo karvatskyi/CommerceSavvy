@@ -12,4 +12,5 @@ public interface TaskService {
     List<Task> createTasks(List<Item> items);
 
     TaskResponseDto createOrder(TaskRequestDto requestDto);
+    TaskResponseDto getTaskById(Long id);
 }

@@ -2,8 +2,10 @@ package backend.storage.api.controller;
 
 import backend.storage.api.dto.TaskRequestDto;
 import backend.storage.api.dto.TaskResponseDto;
+import backend.storage.api.mapper.TaskMapper;
 import backend.storage.api.model.Item;
 import backend.storage.api.model.Task;
+import backend.storage.api.repository.TaskRepository;
 import backend.storage.api.service.ParserService;
 import backend.storage.api.service.ReaderService;
 import backend.storage.api.service.TaskService;
@@ -30,6 +32,10 @@ public class TaskController {
 
     private final ParserService<Item> parserService;
 
+    private final TaskRepository taskRepository;
+
+    private final TaskMapper taskMapper;
+
     @PostMapping("/file")
     public List<Task> orderingProducts(@RequestPart("file") MultipartFile file) {
         List<Item> parsedList = parserService.parse(readerService.readFromFile(file));
@@ -39,12 +45,11 @@ public class TaskController {
     @PreAuthorize("hasAuthority('MANAGER')")
     @PostMapping("/create/order")
     public TaskResponseDto createOrder(@RequestBody TaskRequestDto requestDto) {
-        TaskResponseDto order = taskService.createOrder(requestDto);
-        return order;
+        return taskService.createTask(requestDto);
     }
 
     @GetMapping("/get{id}")
     public TaskResponseDto getById(@PathVariable Long id) {
-        return null;
+        return taskService.getTaskById(id);
     }
 }
