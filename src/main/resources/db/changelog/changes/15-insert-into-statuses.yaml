@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-statuses
+      author: karvatskyi
+      changes:
+        - sql:
+            sql: INSERT INTO statuses (status_type) VALUES ('CREATED'), ('PICKET'), ('IN_TRANSIT'), ('DELIVERED')

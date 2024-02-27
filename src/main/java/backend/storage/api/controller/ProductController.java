@@ -6,6 +6,7 @@ import backend.storage.api.model.Product;
 import backend.storage.api.service.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,11 +28,10 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping("/all")
-    public List<ProductResponseDto> findAll() {
-        return productService.findAll();
+    public List<ProductResponseDto> findAll(Pageable pageable) {
+        return productService.findAll(pageable);
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/save")
     public ProductResponseDto save(@RequestBody @Valid ProductRequestDto product) {
         return productService.save(product);

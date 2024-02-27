@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-table-status
+      author: karvatskyi
+      changes:
+        - createTable:
+            tableName: statuses
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: status_type
+                  type: ENUM('CREATED', 'PICKET', 'IN_TRANSIT', 'DELIVERED')
+                  constraints:
+                    nullable: false
