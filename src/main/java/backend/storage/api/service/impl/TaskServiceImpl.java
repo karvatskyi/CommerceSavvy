@@ -62,18 +62,45 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    public TaskResponseDto getTaskById(Long id) {
+        Task task = taskRepository.findById(id).orElseThrow(() -> new RuntimeException("Can't find task with id: " + id));
+        TaskResponseDto response = taskMapper.toResponseFromEntity(task);
+        response.setAuthorTask(employeeMapper.toResponseFromEntity(task.getAuthorTaskId()));
+        return response;
+    }
+
+    @Override
     public TaskResponseDto createOrder(TaskRequestDto requestDto) {
         Task task = initEntityFromRequest(requestDto);
         taskRepository.save(task);
         return initResponseFromEntity(requestDto, task);
     }
 
-    @Override
-    public TaskResponseDto getTaskById(Long id) {
-        Task task = taskRepository.findById(id).orElseThrow(() -> new RuntimeException("Task doesn't exist"));
+    private Task initEntityFromRequest(TaskRequestDto requestDto) {
+        Task task = taskMapper.toEntityFromRequest(requestDto);
+        task.setCreationTime(LocalDateTime.now());
+        Set<Item> collect = requestDto.getItems()
+                .stream()
+                .map(itemRepository::save)
+                .collect(Collectors.toSet());
+        task.setItemList(collect);
+        task.setSizeTask(calculateSizeTask(requestDto.getItems()));
+        return task;
+    }
+
+    private TaskResponseDto initResponseFromEntity(TaskRequestDto requestDto, Task task) {
         TaskResponseDto response = taskMapper.toResponseFromEntity(task);
-        response.setAuthorTask(employeeMapper.toResponseFromEntity(task.getAuthorTaskId()));
+        response.setAuthorTask(employeeMapper.toResponseFromEntity(employeeRepository
+                .findById(requestDto.getAuthorTaskId())
+                .orElseThrow(() -> new RuntimeException("Employee with id: " + requestDto
+                        .getAuthorTaskId() + " doesn't exist"))));
         return response;
+    }
+
+    private int calculateSizeTask(Set<Item> items) {
+        return items.stream()
+                .mapToInt(Item::getQuantity)
+                .sum();
     }
 
     private List<Item> split(List<Item> items) {
@@ -96,29 +123,5 @@ public class TaskServiceImpl implements TaskService {
             }
         }
         return result;
-    }
-
-    private Task initEntityFromRequest(TaskRequestDto requestDto) {
-        Task task = taskMapper.toEntityFromRequest(requestDto);
-        task.setCreationTime(LocalDateTime.now());
-        Set<Item> collect = requestDto.getItems().stream().map(itemRepository::save).collect(Collectors.toSet());
-        task.setItemList(collect);
-        task.setSizeTask(calculateSizeTask(requestDto.getItems()));
-        return task;
-    }
-
-    private TaskResponseDto initResponseFromEntity(TaskRequestDto requestDto, Task task) {
-        TaskResponseDto response = taskMapper.toResponseFromEntity(task);
-        response.setAuthorTask(employeeMapper.toResponseFromEntity(employeeRepository
-                .findById(requestDto.getAuthorTaskId())
-                .orElseThrow(() -> new RuntimeException("Employee with id: " + requestDto
-                        .getAuthorTaskId() + " doesn't exist"))));
-        return response;
-    }
-
-    private int calculateSizeTask(Set<Item> items) {
-        return items.stream()
-                .mapToInt(Item::getQuantity)
-                .sum();
     }
 }

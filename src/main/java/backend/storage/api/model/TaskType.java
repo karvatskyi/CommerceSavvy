@@ -16,7 +16,6 @@ import lombok.RequiredArgsConstructor;
 @Table(name = "task_types")
 @RequiredArgsConstructor
 public class TaskType {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,6 +24,9 @@ public class TaskType {
     @Column(name = "type")
     private Type type;
 
+    public TaskType(String taskType) {
+        this.type = Type.valueOf(taskType);
+    }
     public enum Type {
         ORDER,
         MOVING

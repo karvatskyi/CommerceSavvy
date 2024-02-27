@@ -24,6 +24,9 @@ public class Status {
     @Column(name = "status_type", nullable = false)
     private StatusType type;
 
+    public Status(String statusType) {
+        this.type = StatusType.valueOf(statusType);
+    }
     public enum StatusType {
         CREATED,
         PICKET,
