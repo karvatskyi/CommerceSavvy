@@ -42,6 +42,9 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
+                  name: start_perform_time
+                  type: TIMESTAMP
+              - column:
                   name: buyer
                   type: varchar(100)
               - column:
