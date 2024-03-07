@@ -13,15 +13,4 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {
 
-    private final EmployeeRepository employeeRepository;
-
-    private final EmployeeMapper employeeMapper;
-
-    @Override
-    public int incrementProductivityThisMonth(int point, Long userId) {
-        Employee employee = employeeRepository.getReferenceById(userId);
-        employee.setProductivityThisMonth(employee.getProductivityThisMonth() + point);
-        return employee.getProductivityThisMonth();
-    }
-
 }

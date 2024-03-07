@@ -56,6 +56,9 @@ public class Task {
     @Column(name = "creation_time", nullable = false)
     private LocalDateTime creationTime;
 
+    @Column(name = "start_perform_time")
+    private LocalDateTime startPerformTime;
+
     @Column(name = "buyer")
     private String buyer;
 
